@@ -2,7 +2,14 @@
 <EntityDeveloper Version="7.3.193.0">
   <ModelSettings xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" AppConnectionStringName="csKapcsolat" ConnectionStringInAppConfig="True" RegenareteConnectionStringInAppConfig="False" TargetFramework="Net80" DetectTPTInheritance="True" SynchronizeNulableReferenceTypes="True" EntityFrameworkCoreVersion="Version8" DetectFunctionBasedColumnDefault="True">
     <Connection ConnectionString="" Provider="" />
-    <Generation />
+    <Generation>
+      <GeneratedFiles>
+        <File Name="dmTelefonkonyv.cnTelefonkonyv.cs" />
+        <File Name="dmTelefonkonyv.Szemely.cs" />
+        <File Name="dmTelefonkonyv.Helyseg.cs" />
+        <File Name="dmTelefonkonyv.Szam.cs" />
+      </GeneratedFiles>
+    </Generation>
     <DatabaseFirstNamingRules>
       <EntitySet PluralizationName="Pluralize" />
       <Class UseSchemaAsPrefix="False" PluralizeCollectionNavigationPropertyName="True" AddConstraintColumnsToNavigationPropertyName="False" RemoveUnderscores="True" AddUnderscores="False" RemoveInvalidCharacters="True" CodeCase="FirstLetterUppercase" AddPrefix="" AddSuffix="" RemovePrefixes="" RemoveSuffixes="" PluralizationName="Singularize" />
