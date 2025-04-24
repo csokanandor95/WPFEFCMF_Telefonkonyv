@@ -1,4 +1,4 @@
-﻿namespace cnTelefonkonyv
+﻿namespace Telefonkonyv
 {
     public partial class Szemely
     {
