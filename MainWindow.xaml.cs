@@ -109,5 +109,52 @@ namespace WPFEFCMF_Telefonkonyv
             tbHelységnév.Text = h.Név;
             tbIrányítószám.Text = h.Irányítószám.ToString();
         }
+        private void btÚMVissza_Click(object sender, RoutedEventArgs e)
+        {
+            tbHelységnév.Text = "";
+            tbIrányítószám.Text = "";
+            grHelység.Visibility = Visibility.Collapsed;
+        }
+
+        private void btÚMMentés_Click(object sender, RoutedEventArgs e)
+        {
+            if (!NévIrányítószámEllenőriz(false)) return;
+            var h = cbNév.SelectedItem as Helyseg;
+            if (h == null) return;
+            h.Név = tbHelységnév.Text;
+            h.Irányítószám = short.Parse(tbIrányítószám.Text);
+            h.Név = tbHelységnév.Text;
+            cn.SaveChanges();
+            MessageBox.Show("Módosítások elmentve!");
+            grHelység.DataContext = null;
+            grHelység.DataContext = cn.Helységek.Include(h => h.Személyek).ToList();
+            cbNév.SelectedItem = h;
+        }
+
+        bool NévIrányítószámEllenőriz(bool ÚjIrszKell = true)
+        {
+            if (tbIrányítószám.Text.Length == 0)
+            {
+                MessageBox.Show("Kérlek add meg a helység irányítószámát!");
+                return false;
+            }
+            var res = short.TryParse(tbIrányítószám.Text, out short irsz);
+            if (!res || (res && irsz < 1))
+            {
+                MessageBox.Show("Az irányítószám nem érvényes!");
+                return false;
+            }
+            if (ÚjIrszKell && cn.Helységek.Any(h => h.Irányítószám == irsz))
+            {
+                MessageBox.Show("Ez az irányítószám már szerepel az adatbázisban!");
+                return false;
+            }
+            if (tbHelységnév.Text == "")
+            {
+                MessageBox.Show("Kérlek add meg a helység nevét!");
+                return false;
+            }
+            return true;
+        }
     }
 }
