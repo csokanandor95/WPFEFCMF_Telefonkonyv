@@ -102,5 +102,12 @@ namespace WPFEFCMF_Telefonkonyv
             cbIrányítószám.SelectedIndex = 0;
         }
 
+        private void cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var h = ((ComboBox)sender).SelectedItem as Helyseg;
+            if (h == null) return;
+            tbHelységnév.Text = h.Név;
+            tbIrányítószám.Text = h.Irányítószám.ToString();
+        }
     }
 }
