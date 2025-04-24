@@ -93,5 +93,14 @@ namespace WPFEFCMF_Telefonkonyv
             dgMind.ItemsSource = cn.Személyek.Include(p => p.Helység).Include(
                 p => p.Számok).ToList();
         }
+
+        private void mi_ÚMHelységekClick(object sender, RoutedEventArgs e)
+        {
+            Összecsuk();
+            grHelység.Visibility = Visibility.Visible;
+            grHelység.DataContext = cn.Helységek.Include(h => h.Személyek).ToList();
+            cbIrányítószám.SelectedIndex = 0;
+        }
+
     }
 }
