@@ -35,7 +35,7 @@
   </class>
   <associations>
     <association name="Helyseg_Szemely" cardinality="OneToMany" p1:Guid="77149434-ec1e-4013-a683-abcb75869e2a">
-      <end1 multiplicity="ZeroOrOne" name="Helyseg" class="Szemely" relation-class="Helyseg" constrained="True" lazy="False" p1:Guid="5c51c57b-50c0-4db3-bdbc-b5f29f772ad9">
+      <end1 multiplicity="ZeroOrOne" name="Helység" class="Szemely" relation-class="Helyseg" constrained="True" lazy="False" p1:Guid="5c51c57b-50c0-4db3-bdbc-b5f29f772ad9">
         <property name="HelységId" />
       </end1>
       <end2 multiplicity="Many" name="Személyek" class="Helyseg" relation-class="Szemely" lazy="False" p1:Guid="d4389746-8b26-4b07-9f9b-9473a532e343">
