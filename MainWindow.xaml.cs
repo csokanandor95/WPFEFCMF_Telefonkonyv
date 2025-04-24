@@ -65,5 +65,10 @@ namespace WPFEFCMF_Telefonkonyv
             }
             MessageBox.Show(s);
         }
+
+        private void mi_KilépésClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
