@@ -85,5 +85,13 @@ namespace WPFEFCMF_Telefonkonyv
             dgHelységek.Visibility = Visibility.Visible;
             dgHelységek.ItemsSource = cn.Helységek.ToList();
         }
+
+        private void mi_MindenClick(object sender, RoutedEventArgs e)
+        {
+            Összecsuk();
+            dgMind.Visibility = Visibility.Visible;
+            dgMind.ItemsSource = cn.Személyek.Include(p => p.Helység).Include(
+                p => p.Számok).ToList();
+        }
     }
 }

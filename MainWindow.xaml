@@ -30,8 +30,17 @@
         </DataGrid>
 
         <DataGrid x:Name="dgMind" IsReadOnly="True" DockPanel.Dock="Top" 
-									Visibility="Collapsed" AutoGenerateColumns="True" 
-									ItemsSource="{Binding}" />
+									Visibility="Collapsed" AutoGenerateColumns="False" 
+									ItemsSource="{Binding}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Név" Binding="{Binding Név}" />
+                <DataGridTextColumn Header="Cím" Binding="{Binding Cím}" />
+                <DataGridTextColumn Header="Irányítószám" Binding="{Binding HelységIrányítószám}" />
+                <DataGridTextColumn Header="Helység" Binding="{Binding HelységNév}" />
+                <DataGridTextColumn Header="TelefonszámLista" 
+			Binding="{Binding TelefonszámLista}" />
+            </DataGrid.Columns>
+        </DataGrid>
 
         <Grid x:Name="grHelység" Visibility="Collapsed" Margin="0,10,0,0" 
 						DataContext="{Binding}">
