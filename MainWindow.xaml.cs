@@ -156,5 +156,24 @@ namespace WPFEFCMF_Telefonkonyv
             }
             return true;
         }
+        private void btÚMÚjMentés_Click(object sender, RoutedEventArgs e)
+        {
+            if (!NévIrányítószámEllenőriz()) return;
+            var újh = new Helyseg
+            {
+                Irányítószám = short.Parse(tbIrányítószám.Text),
+                Név = tbHelységnév.Text
+            };
+            cn.Helységek.Add(újh);
+            cn.SaveChanges();
+            MessageBox.Show("Helység mentve!");
+            tbHelységnév.Text = "";
+            tbIrányítószám.Text = string.Empty;
+            grHelység.DataContext = null;
+            grHelység.DataContext = cn.Helységek.Include(h => h.Személyek).ToList();
+            cbIrányítószám.SelectedItem = újh;
+        }
+
+
     }
 }
