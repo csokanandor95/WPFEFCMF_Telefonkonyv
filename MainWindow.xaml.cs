@@ -70,5 +70,20 @@ namespace WPFEFCMF_Telefonkonyv
         {
             Application.Current.Shutdown();
         }
+
+        private void Összecsuk()
+        {
+            grHelység.Visibility = Visibility.Collapsed;
+            grSzám.Visibility = Visibility.Collapsed;
+            dgMind.Visibility = Visibility.Collapsed;
+            dgHelységek.Visibility = Visibility.Collapsed;
+        }
+
+        private void mi_HelységekClick(object sender, RoutedEventArgs e)
+        {
+            Összecsuk();
+            dgHelységek.Visibility = Visibility.Visible;
+            dgHelységek.ItemsSource = cn.Helységek.ToList();
+        }
     }
 }

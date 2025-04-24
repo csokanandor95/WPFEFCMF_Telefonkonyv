@@ -21,8 +21,13 @@
             </MenuItem>
         </Menu>
         <DataGrid x:Name="dgHelységek" IsReadOnly="True" DockPanel.Dock="Top" 
-								Visibility="Collapsed" AutoGenerateColumns="True" 
-								ItemsSource="{Binding}"/>
+								Visibility="Collapsed" AutoGenerateColumns="False" 
+								ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Irányítószám" Binding="{Binding Irányítószám}" />
+                <DataGridTextColumn Header="Név" Binding="{Binding Név}" />
+            </DataGrid.Columns>
+        </DataGrid>
 
         <DataGrid x:Name="dgMind" IsReadOnly="True" DockPanel.Dock="Top" 
 									Visibility="Collapsed" AutoGenerateColumns="True" 
