@@ -174,6 +174,51 @@ namespace WPFEFCMF_Telefonkonyv
             cbIrányítószám.SelectedItem = újh;
         }
 
+        private void mi_ÚMTelefonszámokClick(object sender, RoutedEventArgs e)
+        {
+            Összecsuk();
+            grSzám.Visibility = Visibility.Visible;
+            grSzám.DataContext = cn.Számok.Include(sz => sz.Személyek).ToList();
+            cbSzámok.SelectedIndex = 0;
+        }
+
+        private void cbSzám_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var n = ((ComboBox)sender).SelectedItem as Szam;
+            if (n == null) return;
+            tbÚjSzám.Text = n.SzámSztring;
+        }
+
+        private void btTelefonszámMentés_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbÚjSzám.Text.Length < 3)
+            {
+                MessageBox.Show("Érvénytelen telefonszám!");
+                return;
+            }
+            if (cn.Számok.Any(sz => sz.SzámSztring == tbÚjSzám.Text))
+            {
+                MessageBox.Show("A szám már szerepel az adatbázisban!");
+                return;
+            }
+            var sz = cbSzámok.SelectedItem as Szam;
+            if (sz == null) return;
+            sz.SzámSztring = tbÚjSzám.Text;
+            cn.SaveChanges();
+            MessageBox.Show("Szám módosítva!");
+            grSzám.DataContext = null;
+            grSzám.DataContext = cn.Számok.Include(sz => sz.Személyek).ToList();
+            cbSzámok.SelectedItem = sz;
+        }
+
+
+
+
+
+
+
+
+
 
     }
 }
