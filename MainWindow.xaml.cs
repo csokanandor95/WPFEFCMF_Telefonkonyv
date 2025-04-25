@@ -281,7 +281,19 @@ namespace WPFEFCMF_Telefonkonyv
             cbIrányítószám.UpdateLayout();
         }
 
-
+        private void btÚMTTöröl_Click(object sender, RoutedEventArgs e)
+        {
+            var szám = cbSzámok.SelectedItem as Szam;
+            if (szám == null) return;
+            foreach (var személy in szám.Személyek)
+                személy.Számok.Remove(szám);
+            cn.Számok.Remove(szám);
+            cn.SaveChanges();
+            MessageBox.Show("Szám törölve!");
+            grSzám.DataContext = null;
+            grSzám.DataContext = cn.Számok.Include(szám => szám.Személyek).ToList();
+            cbSzámok.SelectedIndex = 0;
+        }
 
 
 
