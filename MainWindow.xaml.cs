@@ -296,6 +296,18 @@ namespace WPFEFCMF_Telefonkonyv
             cbSzámok.SelectedIndex = 0;
         }
 
+        private void mi_ÚMSzemélyekClick(object sender, RoutedEventArgs e)
+        {
+            Összecsuk();
+            Height = 450;
+            grSzemély.Visibility = Visibility.Visible;
+            grSzemély.DataContext = null;
+            grSzemély.DataContext = cn.Személyek.Include(sz => sz.Helység).Include(sz => sz.Számok).ToList();
+            cbSzemélyHelység.ItemsSource = cn.Helységek.Include(h => h.Személyek).ToList();
+            lbSzemélyÖsszesSzám.ItemsSource = cn.Számok.Include(szám => szám.Személyek).ToList();
+            cbSzemélyNév.SelectedIndex = 0;
+        }
+
 
 
 
