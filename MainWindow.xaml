@@ -71,12 +71,14 @@
             <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbHelységnév" Margin="5"/>
             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" 
 											Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                <Button Content="Mentés" Click="btÚMMentés_Click"  Margin="5" 
+                <Button Content="Mentés" Click="btÚMMentés_Click"  Margin="50,5,50,5" 
 											Width="80" Height="30"/>
                 <Button Content="Mentés új helységként" Click="btÚMÚjMentés_Click" 
 											Margin="50,5,50,5" Width="150" Height="30"/>
-                <Button Content="Vissza" Click="btÚMVissza_Click"  Margin="5" 
+                <Button Content="Vissza" Click="btÚMVissza_Click"  Margin="50,5,50,5" 
 											Width="80" Height="30"/>
+                <Button Content="Töröl" Click="btÚMTöröl_Click"  Margin="50,5,50,5" 
+										Width="80" Height="30"/>
             </StackPanel>
         </Grid>
 
