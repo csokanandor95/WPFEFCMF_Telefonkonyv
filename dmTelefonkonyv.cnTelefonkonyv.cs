@@ -58,9 +58,6 @@ namespace Telefonkonyv
 
         }
 
-
-
-
         private static string GetConnectionString(string connectionStringName)
         {
             var configurationBuilder = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
