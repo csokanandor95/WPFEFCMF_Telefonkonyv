@@ -18,6 +18,7 @@
             <MenuItem Header="Új/Módosítás">
                 <MenuItem Header="Helységek" Click="mi_ÚMHelységekClick"/>
                 <MenuItem Header="Telefonszámok" Click="mi_ÚMTelefonszámokClick"/>
+                <MenuItem Header="Személyek" Click="mi_ÚMSzemélyekClick"/>
             </MenuItem>
         </Menu>
         <DataGrid x:Name="dgHelységek" IsReadOnly="True" DockPanel.Dock="Top" 
@@ -114,5 +115,70 @@
 								 Height="35" />
             </StackPanel>
         </Grid>
+
+        <Grid x:Name="grSzemély" Visibility="Collapsed" Margin="0,10,0,0" 
+					DataContext="{Binding}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Név" Margin="5"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5" 
+				ItemsSource="{Binding}" DisplayMemberPath="Név" 
+				IsSynchronizedWithCurrentItem="True" x:Name="cbSzemélyNév" 
+				SelectionChanged="cb_SzemélyNévSelectionChanged"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Név" Margin="5"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbSzemélyNév" Margin="5"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Helység" Margin="5"/>
+            <ComboBox Grid.Row="2" Grid.Column="1" Margin="5" 
+				ItemsSource="{Binding}" DisplayMemberPath="Írányítószám_Név" 
+				IsSynchronizedWithCurrentItem="True" x:Name="cbSzemélyHelység" 
+				/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Cím" Margin="5"/>
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbSzemélyCím" Margin="5"/>
+            <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Telefonszámok" Margin="5,0,0,0"/>
+                <ListBox Grid.Row="1" Grid.Column="0" x:Name="lbSzemélySzámok" DisplayMemberPath="Számsztring" Margin="5"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
+                    <Button Content="Eltávolít" Click="SzámEltávolít_Click" VerticalAlignment="Center" Margin="5"/>
+                    <Button Content="Hozzáad" Click="SzámHozzáad_Click" VerticalAlignment="Center" Margin="5"/>
+                </StackPanel>
+                <Label Grid.Row="0" Grid.Column="2" Content="Összes szám" Margin="5,0,0,0"/>
+                <ListBox Grid.Row="1" Grid.Column="2" x:Name="lbSzemélyÖsszesSzám" ItemsSource="{Binding}" DisplayMemberPath="SzámSztring" Margin="5"/>
+            </Grid>
+            <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal" 
+					Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                <Button Content="Ment" Click="btSzemélyMent_Click"  Margin="50,5,50,5" 
+						Width="80" Height="30"/>
+                <Button Content="Ment új személyként" Click="btSzemélyÚjMent_Click"  
+						Margin="50,5,50,5" Width="150" Height="30"/>
+                <Button Content="Vissza" Click="btSzemélyVissza_Click"  Margin="50,5,50,5" 
+						Width="80" Height="30"/>
+                <Button Content="Töröl" Click="btSzemélyTöröl_Click"  Margin="50,5,50,5" 
+							Width="80" Height="30"/>
+            </StackPanel>
+        </Grid>
+
+
+
+
+
     </DockPanel>
 </Window>
