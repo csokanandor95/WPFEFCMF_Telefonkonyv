@@ -73,10 +73,11 @@ namespace WPFEFCMF_Telefonkonyv
 
         private void Összecsuk()
         {
-            grHelység.Visibility = Visibility.Collapsed;
-            grSzám.Visibility = Visibility.Collapsed;
             dgMind.Visibility = Visibility.Collapsed;
             dgHelységek.Visibility = Visibility.Collapsed;
+            grHelység.Visibility = Visibility.Collapsed;
+            grSzám.Visibility = Visibility.Collapsed;
+            grSzemély.Visibility = Visibility.Collapsed;
         }
 
         private void mi_HelységekClick(object sender, RoutedEventArgs e)
