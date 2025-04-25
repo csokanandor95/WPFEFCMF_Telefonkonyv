@@ -107,9 +107,11 @@
                 <Button Content="Mentés" Click="btTelefonszámMentés_Click"  Width="80" 
 									 Height="35" />
                 <Button Content="Mentés új számként" Click="btÚjSzámMentés_Click" 
-									 Width="120" Height="35" Margin="28,0,28,0"/>
+									 Width="120" Height="35" Margin="19,0,19,0"/>
                 <Button Content="Vissza" Click="btTelefonszámVissza_Click"  Width="80" 
-									 Height="35" />
+									 Height="35" Margin="0,0,19,0"/>
+                <Button Content="Töröl" Click="btÚMTTöröl_Click"  Width="80" 
+								 Height="35" />
             </StackPanel>
         </Grid>
     </DockPanel>
