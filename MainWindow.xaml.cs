@@ -267,6 +267,20 @@ namespace WPFEFCMF_Telefonkonyv
             }
         }
 
+        private void btÚMHTöröl_Click(object sender, RoutedEventArgs e)
+        {
+            var h = cbIrányítószám.SelectedItem as Helyseg;
+            if (h == null) return;
+            foreach (var sz in h.Személyek)
+                sz.Helység = null;
+            cn.Helységek.Remove(h);
+            cn.SaveChanges();
+            MessageBox.Show("Helység törölve!");
+            grHelység.DataContext = cn.Helységek.Include(c => c.Személyek).ToList();
+            cbIrányítószám.SelectedIndex = 0;
+            cbIrányítószám.UpdateLayout();
+        }
+
 
 
 
