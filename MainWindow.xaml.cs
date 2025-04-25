@@ -211,6 +211,62 @@ namespace WPFEFCMF_Telefonkonyv
             cbSzámok.SelectedItem = sz;
         }
 
+        private void btÚjSzámMentés_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbÚjSzám.Text.Length < 3)
+            {
+                MessageBox.Show("Érvénytelen telefonszám!");
+                return;
+            }
+            if (cn.Számok.Any(sz => sz.SzámSztring == tbÚjSzám.Text))
+            {
+                MessageBox.Show("A szám már szerepel az adatbázisban!");
+                return;
+            }
+            Szam sz = new Szam { SzámSztring = tbÚjSzám.Text };
+            cn.Számok.Add(sz);
+            cn.SaveChanges();
+            MessageBox.Show("Szám mentve!");
+            grSzám.DataContext = null;
+            grSzám.DataContext = cn.Számok.Include(sz => sz.Személyek).ToList();
+            cbSzámok.SelectedItem = 0;
+        }
+
+        private void btTelefonszámVissza_Click(object sender, RoutedEventArgs e)
+        {
+            grSzám.Visibility = Visibility.Collapsed;
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            DBLecsatol();
+        }
+
+        private void DBLecsatol()
+        {
+            cn.Database.OpenConnection();
+            var connection = cn.Database.GetDbConnection();
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+            string[] commands =
+            { "USE master",
+        $"ALTER DATABASE [{connection.Database}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE",
+        $"ALTER DATABASE [{connection.Database}] SET OFFLINE WITH ROLLBACK IMMEDIATE",
+        $"EXEC sp_detach_db '{connection.Database}'"
+      };
+            using (var sqlCommand = new SqlCommand())
+            {
+                sqlCommand.Connection = connection as SqlConnection;
+                foreach (string command in commands)
+                {
+                    sqlCommand.CommandText = command;
+                    sqlCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
 
 
 
