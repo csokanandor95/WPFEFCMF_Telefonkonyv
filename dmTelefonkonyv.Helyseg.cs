@@ -20,6 +20,8 @@ namespace Telefonkonyv
 {
     public partial class Helyseg {
 
+        public string Írányítószám_Név => Irányítószám + " - " + Név;
+
         public Helyseg()
         {
             this.Személyek = new List<Szemely>();
