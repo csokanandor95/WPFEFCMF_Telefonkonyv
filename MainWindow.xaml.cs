@@ -308,12 +308,110 @@ namespace WPFEFCMF_Telefonkonyv
             cbSzemélyNév.SelectedIndex = 0;
         }
 
+        private void cb_SzemélyNévSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var sz = cbSzemélyNév.SelectedItem as Szemely;
+            if (sz == null) return;
+            cbSzemélyHelység.SelectedItem = sz.Helység;
+            tbSzemélyCím.Text = sz.Cím;
+            tbSzemélyNév.Text = sz.Név;
+            lbSzemélySzámok.Items.Clear();
+            foreach (Szam szám in sz.Számok)
+                lbSzemélySzámok.Items.Add(szám);
+        }
 
+        private void SzámEltávolít_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbSzemélySzámok.SelectedItem is not Szam szám) return;
+            lbSzemélySzámok.Items.Remove(szám);
+        }
 
+        private void SzámHozzáad_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbSzemélyÖsszesSzám.SelectedItem is not Szam szám) return;
+            if (lbSzemélySzámok.Items.Contains(szám)) return;
+            lbSzemélySzámok.Items.Add(szám);
+        }
 
+        private bool NévCímEllenőriz()
+        {
+            if (tbSzemélyNév.Text.Length < 3)
+            {
+                MessageBox.Show("Érvénytelen név!");
+                return false;
+            }
+            if (tbSzemélyCím.Text.Length < 3)
+            {
+                MessageBox.Show("Érvénytelen cím!");
+                return false;
+            }
+            return true;
+        }
 
+        private void btSzemélyMent_Click(object sender, RoutedEventArgs e)
+        {
+            if (!NévCímEllenőriz()) return;
+            if (cbSzemélyNév.SelectedItem is not Szemely sz) return;
+            sz.Név = tbSzemélyNév.Text;
+            sz.Cím = tbSzemélyCím.Text;
+            if (cbSzemélyHelység.SelectedItem is not Helyseg h) return;
+            sz.Helység = h;
+            sz.Számok.Clear();
+            foreach (Szam n in lbSzemélySzámok.Items)
+                sz.Számok.Add(n);
+            cn.SaveChanges();
+            MessageBox.Show("Személy mentve!");
+            grSzemély.DataContext = null;
+            grSzemély.DataContext = cn.Személyek.Include(sz => sz.Számok).Include(sz => sz.Helység).ToList();
+            cbSzemélyHelység.ItemsSource = cn.Helységek.Include(h => h.Személyek).ToList();
+            cbSzemélyNév.SelectedItem = sz;
+            cbSzemélyHelység.SelectedItem = sz.Helység;
+            lbSzemélyÖsszesSzám.ItemsSource = cn.Számok.Include(n => n.Személyek).ToList();
+        }
 
+        private void btSzemélyÚjMent_Click(object sender, RoutedEventArgs e)
+        {
+            if (!NévCímEllenőriz()) return;
+            if (cbSzemélyHelység.SelectedItem is not Helyseg h) return;
+            var sz = new Szemely
+            {
+                Név = tbSzemélyNév.Text,
+                Cím = tbSzemélyCím.Text,
+                Helység = h
+            };
+            foreach (Szam szám in lbSzemélySzámok.Items)
+                sz.Számok.Add(szám);
+            cn.Személyek.Add(sz);
+            cn.SaveChanges();
+            MessageBox.Show("Személy mentve!");
+            grSzemély.DataContext = null;
+            grSzemély.DataContext = cn.Személyek.Include(sz => sz.Számok).Include(sz => sz.Helység).ToList();
+            cbSzemélyHelység.ItemsSource = cn.Helységek.Include(h => h.Személyek).ToList();
+            cbSzemélyNév.SelectedItem = sz;
+            cbSzemélyHelység.SelectedItem = sz.Helység;
+            lbSzemélyÖsszesSzám.ItemsSource = cn.Számok.Include(szám => szám.Személyek).ToList();
+        }
 
+        private void btSzemélyVissza_Click(object sender, RoutedEventArgs e)
+        {
+            tbSzemélyCím.Text = "";
+            tbSzemélyNév.Text = "";
+            grSzemély.Visibility = Visibility.Collapsed;
+        }
 
+        private void btSzemélyTöröl_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbSzemélyNév.SelectedItem is not Szemely sz) return;
+            foreach (var szám in sz.Számok)
+                szám.Személyek.Remove(sz);
+            sz.Helység.Személyek.Remove(sz);
+            cn.Személyek.Remove(sz);
+            cn.SaveChanges();
+            MessageBox.Show("Személy törölve!");
+            grSzemély.DataContext = null;
+            grSzemély.DataContext = cn.Személyek.Include(sz => sz.Helység).Include(sz => sz.Számok).ToList();
+            cbSzemélyHelység.ItemsSource = cn.Helységek.Include(h => h.Személyek).ToList();
+            cbSzemélyNév.SelectedIndex = 0;
+        }
     }
 }
