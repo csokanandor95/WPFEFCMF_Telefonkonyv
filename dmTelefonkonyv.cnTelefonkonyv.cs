@@ -43,14 +43,23 @@ namespace Telefonkonyv
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured ||
-                (!optionsBuilder.Options.Extensions.OfType<RelationalOptionsExtension>().Any(ext => !string.IsNullOrEmpty(ext.ConnectionString) || ext.Connection != null) &&
-                 !optionsBuilder.Options.Extensions.Any(ext => !(ext is RelationalOptionsExtension) && !(ext is CoreOptionsExtension))))
+            if (!optionsBuilder.IsConfigured)
             {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+                IConfiguration config = builder.Build();
+
+                string connStr = config.GetConnectionString("csKapcsolat");
+                optionsBuilder.UseSqlServer(connStr);
             }
-            CustomizeConfiguration(ref optionsBuilder);
-            base.OnConfiguring(optionsBuilder);
+            Console.WriteLine("Connection string successfully read and set.");
+
         }
+
+
+
 
         private static string GetConnectionString(string connectionStringName)
         {
