@@ -46,7 +46,7 @@ namespace WPFEFCMF_Telefonkonyv
             szám2.Személyek.Add(sz2);
             szám3.Személyek.Add(sz1);
             szám3.Személyek.Add(sz2);
-            cn.Személyek.AddRange([sz1, sz2]);
+            
             cn.Helységek.AddRange([h1, h2]);
             cn.Számok.AddRange([szám1, szám2, szám3]);
             cn.SaveChanges();
