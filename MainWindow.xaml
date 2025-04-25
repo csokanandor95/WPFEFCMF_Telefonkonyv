@@ -78,7 +78,7 @@
 											Margin="50,5,50,5" Width="150" Height="30"/>
                 <Button Content="Vissza" Click="btÚMVissza_Click"  Margin="50,5,50,5" 
 											Width="80" Height="30"/>
-                <Button Content="Töröl" Click="btÚMTöröl_Click"  Margin="50,5,50,5" 
+                <Button Content="Töröl" Click="btÚMHTöröl_Click" Margin="50,5,50,5" 
 										Width="80" Height="30"/>
             </StackPanel>
         </Grid>
